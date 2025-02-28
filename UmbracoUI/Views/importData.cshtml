@@ -1,0 +1,67 @@
+﻿@using Newtonsoft.Json
+
+
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ImportData>
+
+@{ 
+    var selectFileType = Model.Value<IEnumerable<string>>("selectFileType");
+    var selectImageType = Model.Value<IEnumerable<string>>("selectImageType"); 
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Center Design</title>
+
+    <link href="~/style1.css" rel="stylesheet" />
+  
+</head>
+<body>
+    <div class="form-container">
+       
+            <h2>Example Form</h2>
+        <form method="POST" enctype="multipart/form-data"> 
+            <div class="form-group">
+                <label for="filetypeid">Select File Type:</label>
+                <select id="filetypeid" name="filetypeid" onchange="updateFileInputAccept()" required multiple>
+                    @foreach (var option in selectFileType)
+                    {
+                        <option value=@option>@option</option>
+                    }
+                </select>
+            </div> 
+            <div class="form-group">
+                <label for="imagetypeid">Select Image Type:</label>
+                <select id="imagetypeid" name="imagetypes" required multiple>
+                   
+                    @foreach (var option in selectImageType)
+                    {
+                        <option value=@option>@option</option>
+                    }
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="fileUpload">Upload File:</label>
+                <input type="file" id="fileUpload" name="files" multiple="multiple" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" asp-action="ImportDataToContent" asp-controller="Image">Submit</button>
+            </div>
+
+
+        </form>
+
+
+    </div>
+    <script>
+      function updateFileInputAccept() {
+              var fileTypes = Array.from(document.getElementById("filetypeid").selectedOptions)
+                                  .map(option => option.value).join(",");
+            document.getElementById("fileUpload").accept = fileTypes;
+        }
+    </script>
+</body>
+</html>
+ 
