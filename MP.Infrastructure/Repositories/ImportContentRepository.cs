@@ -50,6 +50,11 @@ public class ImportContentRepository : IImportContentRepository
 
         return imageMediaItems;
     }
+    /// <summary>
+    /// This is also common method for create Media image type and save image into media section
+    /// </summary>
+    /// <param name="sourceFolderPath">file path</param>
+    /// <returns></returns>
     public async Task<int> UploadImages(string sourceFolderPath)
     {
         var Msg = "";
@@ -161,7 +166,17 @@ public class ImportContentRepository : IImportContentRepository
         }
         return _msg;
     }
-
+    /// <summary>
+    /// This is common method for save data 
+    /// </summary>
+    /// <param name="articles">The method returns a single Content object that represents the first "articlePage" content item from the children of the specified parent node.</param>
+    /// <param name="content">The method will return a Content object that represents the content with the given ID</param>
+    /// <param name="pageAlieas">alieas name of content page</param>
+    /// <param name="name">property alieas</param>
+    /// <param name="title"></param>
+    /// <param name="description"></param>
+    /// <param name="image"></param>
+    /// <returns></returns>
     public async Task<string> SaveContentData(dynamic articles, dynamic content, string pageAlieas, string name, string title, string description, string image)
     {
         content = _contentService.Create(name, (articles?.Id ?? 0), articles?.ContentType.Alias ?? "");
